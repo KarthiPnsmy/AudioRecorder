@@ -41,21 +41,16 @@ Method to start the audio recording process.
 
 **Parameters**
 
-**outputFormat** - required out put file format either `audioRecorder.OutputFormat_MPEG_4` or `audioRecorder.OutputFormat_THREE_GPP`. Default is `OutputFormat_THREE_GPP`.
-
-**audioEncoder** - required audio encoder type `audioRecorder.AudioEncoder_AAC`, `audioRecorder.AudioEncoder_AMR_NB`, `audioRecorder.AudioEncoder_AMR_WB`, `audioRecorder.AudioEncoder_DEFAULT`. Default is `AudioEncoder_AMR_NB`
-
-**directoryName** - output directory name(a directory will be created with this name in SD card). Default directory name is 'audio_recorder'.
-
-**fileName** - output file name. Default file name is current timestamp.
-
-**maxFileSize** - maximum filesize (in bytes) of the recording session.(optional)
-
-**maxDuration** - maximum duration (in ms) of the recording session.(optional)
-
-**success** - callback function to handle success response
-
-**error** - callback function to handle error response
+| Property    	| Description | Default |
+| -------------	| ----------- | ------- |
+| outputFormat  | required out put file format either `audioRecorder.OutputFormat_MPEG_4` or `audioRecorder.OutputFormat_THREE_GPP`| `audioRecorder.OutputFormat_THREE_GPP` |
+| audioEncoder  | required audio encoder type `audioRecorder.AudioEncoder_AAC`, `audioRecorder.AudioEncoder_AMR_NB`, `audioRecorder.AudioEncoder_AMR_WB`, `audioRecorder.AudioEncoder_DEFAULT` | `audioRecorder.AudioEncoder_AMR_NB` |
+| directoryName | output directory name(directory will be created with this name in SD card)| `audio_recorder` |
+| fileName 	| output file name| Default file name is current timestamp |
+| maxFileSize	| maximum filesize (in bytes) of the recording session| - |
+| maxDuration 	| maximum duration (in ms) of the recording session.(optional)| - |
+| success 	| callback function to handle success | - |
+| error 	| callback function to handle error response | - |
 
 ### startRecording()
 
@@ -88,6 +83,12 @@ audioRecorder.startRecording({
 	}
 });
 ```
+refer example/app.js for more info
+
+## Todo
+
+* Local storage option
+
 ## Author
 
 Karthi Ponnusamy - karthi.nkl@gmail.com
