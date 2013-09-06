@@ -45,7 +45,7 @@ Method to start the audio recording process.
 
 **audioEncoder** - required audio encoder type `audioRecorder.AudioEncoder_AAC`, `audioRecorder.AudioEncoder_AMR_NB`, `audioRecorder.AudioEncoder_AMR_WB`, `audioRecorder.AudioEncoder_DEFAULT`. Default is `AudioEncoder_AMR_NB`
 
-**directoryName** - output directory name(a directory will be created with this name in SD card). Default directory name is AudioRecorder.
+**directoryName** - output directory name(a directory will be created with this name in SD card). Default directory name is 'audio_recorder'.
 
 **fileName** - output file name. Default file name is current timestamp.
 

@@ -32,16 +32,16 @@ public class AudiorecorderModule extends KrollModule
 	@Kroll.constant public static final int OutputFormat_THREE_GPP = MediaRecorder.OutputFormat.THREE_GPP;
 
 	//audio encoder
-	//@Kroll.constant public static final int AudioEncoder_AAC = MediaRecorder.AudioEncoder.AAC;
+	@Kroll.constant public static final int AudioEncoder_AAC = MediaRecorder.AudioEncoder.AAC;
 	@Kroll.constant public static final int AudioEncoder_AMR_NB = MediaRecorder.AudioEncoder.AMR_NB;
-	//@Kroll.constant public static final int AudioEncoder_AMR_WB = MediaRecorder.AudioEncoder.AMR_WB;
+	@Kroll.constant public static final int AudioEncoder_AMR_WB = MediaRecorder.AudioEncoder.AMR_WB;
 	@Kroll.constant public static final int AudioEncoder_DEFAULT = MediaRecorder.AudioEncoder.DEFAULT;
 
 	private MediaRecorder recorder = null;
 	private String fullFileName = null;
 	private Boolean isRecording = false;
 	private String outPutFileName = null;
-	private String AUDIO_RECORDER_FOLDER = "AudioRecorder";
+	private String AUDIO_RECORDER_FOLDER = "audio_recorder";
 
 	private KrollFunction successCallback = null;
 	private KrollFunction errorCallback = null;
@@ -81,8 +81,8 @@ public class AudiorecorderModule extends KrollModule
 
 	private void sendSuccessEvent(String filepath) {
 		if (successCallback != null) {
-			System.out.println("@@## inside: successCallback");
-			System.out.println("@@## filepath: " + filepath);
+			//System.out.println("@@## inside: successCallback");
+			//System.out.println("@@## filepath: " + filepath);
 			HashMap<String, String> event = new HashMap<String, String>();
 			event.put("filePath", filepath);
 			event.put("fileName", outPutFileName);
@@ -93,8 +93,8 @@ public class AudiorecorderModule extends KrollModule
 	}
 
 	private void sendErrorEvent(String message) {
-		System.out.println("@@## inside: sendErrorEvent");
-		System.out.println("@@## message: " + message);
+		//System.out.println("@@## inside: sendErrorEvent");
+		//System.out.println("@@## message: " + message);
 		if (errorCallback != null) {
 			HashMap<String, String> event = new HashMap<String, String>();
 			event.put("message", message);
@@ -123,7 +123,7 @@ public class AudiorecorderModule extends KrollModule
 			}
 		}
 
-		System.out.println("@@## Callbacks registered");
+		//System.out.println("@@## Callbacks registered");
 	}
 
 	private String getFilename(int selectedFormat, String selectedFileName, String selectedDirName, String location) {
@@ -144,22 +144,22 @@ public class AudiorecorderModule extends KrollModule
 			fileFormat = ".mp4";
 		}
 		outPutFileName = fileName + fileFormat;
-		System.out.println("@@## location: " + location);
-		System.out.println("@@## outPutFileName: " + outPutFileName);
+		//System.out.println("@@## location: " + location);
+		//System.out.println("@@## outPutFileName: " + outPutFileName);
 		System.out.println("@@## chking external storage: " + isExternalStorageWritable());
 		if(location.equals("internal")){
 			File audioDirectory = TiApplication.getAppRootOrCurrentActivity().getDir(directoryName, Context.MODE_WORLD_READABLE);
-			System.out.println("@@## audioDirectory.exists(): " + audioDirectory.exists());
+			//System.out.println("@@## audioDirectory.exists(): " + audioDirectory.exists());
 			if (!audioDirectory.exists()) {
 				audioDirectory.mkdirs();
 			}
 			fullFileName = (audioDirectory.getAbsolutePath() + "/" + outPutFileName);
-			System.out.println("@@## internal fullFileName: " + fullFileName);
+			//System.out.println("@@## internal fullFileName: " + fullFileName);
 			return fullFileName;
 		} else {
 			if(isExternalStorageWritable()){
 				String packageName = TiApplication.getAppRootOrCurrentActivity().getPackageName();
-				System.out.println("@@## packageName: " + packageName);
+				//System.out.println("@@## packageName: " + packageName);
 				String sdCardPath = Environment.getExternalStorageDirectory().getPath();
 				File audioDirectory = new File(sdCardPath, packageName+"/"+directoryName);
 
@@ -168,7 +168,7 @@ public class AudiorecorderModule extends KrollModule
 				}
 
 				fullFileName = (audioDirectory.getAbsolutePath() + "/" + outPutFileName);
-				System.out.println("@@## external fullFileName: " + fullFileName);
+				//System.out.println("@@## external fullFileName: " + fullFileName);
 				return fullFileName;
 			} else {
 				return null;
@@ -179,19 +179,19 @@ public class AudiorecorderModule extends KrollModule
 	private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {
 		@Override
 		public void onError(MediaRecorder mr, int what, int extra) {
-			System.out.println("@@## Error: " + what + ", " + extra);
+			//System.out.println("@@## Error: " + what + ", " + extra);
 		}
 	};
 	
 	private MediaRecorder.OnInfoListener infoListener = new MediaRecorder.OnInfoListener() {
 		@Override
 		public void onInfo(MediaRecorder mr, int what, int extra) {
-			System.out.println("@@## Warning: " + what + ", " + extra);
+			//System.out.println("@@## Warning: " + what + ", " + extra);
 			if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED) {
-				System.out.println("@@## Maximum Duration Reached");
+				//System.out.println("@@## Maximum Duration Reached");
 				stopRecording();
 			} else if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) {
-				System.out.println("@@## Maximum Filesize Reached");
+				//System.out.println("@@## Maximum Filesize Reached");
 				stopRecording();
 			}
 		}
@@ -209,16 +209,16 @@ public class AudiorecorderModule extends KrollModule
 			String fileName = (String) options.get("fileName");
 			String fileDirectory = (String) options.get("directoryName");
 			String fileLocation = "external";
-			System.out.println("@@## fileFormat: " + fileFormat);
-			System.out.println("@@## fileName: " + fileName);
-			System.out.println("@@## fileDirectory: " + fileDirectory);
+			//System.out.println("@@## fileFormat: " + fileFormat);
+			//System.out.println("@@## fileName: " + fileName);
+			//System.out.println("@@## fileDirectory: " + fileDirectory);
 			registerCallbacks(args);
 			if (options.containsKey("fileLocation")) {
 				fileLocation = (String) options.get("fileLocation");
 			}
-			System.out.println("@@## fileLocation : " + fileLocation);
+			//System.out.println("@@## fileLocation : " + fileLocation);
 			String outputFileName = getFilename(fileFormat, fileName, fileDirectory, "external");
-			System.out.println("@@## outputFileName = "+outputFileName);
+			//System.out.println("@@## outputFileName = "+outputFileName);
 			if(outputFileName == null || outputFileName == ""){
 				sendErrorEvent("External storage not available");
 				return;
@@ -232,21 +232,21 @@ public class AudiorecorderModule extends KrollModule
 			
 			if (options.containsKey("maxDuration")) {
 				int maxDurValue = options.optInt("maxDuration", 5000);
-				System.out.println("@@## maxDurValue : " + maxDurValue);
+				//System.out.println("@@## maxDurValue : " + maxDurValue);
 				try {
 					recorder.setMaxDuration(maxDurValue);
 				} catch (RuntimeException e) {
-					System.out.println("@@## setMaxDuration failed !");
+					//System.out.println("@@## setMaxDuration failed !");
 				}
 			}
 
 			if (options.containsKey("maxFileSize")) {
 				int maxFileSizeValue = options.optInt("maxFileSize", 5000);
-				System.out.println("@@## maxFileSize : " + maxFileSizeValue);
+				//System.out.println("@@## maxFileSize : " + maxFileSizeValue);
 				try {
 					recorder.setMaxFileSize(maxFileSizeValue);
 				} catch (RuntimeException e) {
-					System.out.println("@@## setMaxFileSize failed !");
+					//System.out.println("@@## setMaxFileSize failed !");
 				}
 			}
 			
@@ -259,13 +259,13 @@ public class AudiorecorderModule extends KrollModule
 				recorder.start();
 				isRecording = true;
 			} catch (IllegalStateException e) {
-				System.out.println("@@## Error1 e = "+e);
+				//System.out.println("@@## Error1 e = "+e);
 				e.printStackTrace();
 				isRecording = false;
 				sendErrorEvent(e.toString());
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.out.println("@@## Error3 e = "+e);
+				//System.out.println("@@## Error3 e = "+e);
 				isRecording = false;
 				sendErrorEvent(e.toString());
 			}
@@ -274,12 +274,12 @@ public class AudiorecorderModule extends KrollModule
 
 	@Kroll.method
 	public void stopRecording() {
-		System.out.println("@@## called: stopRecording");
+		//System.out.println("@@## called: stopRecording");
 		if (null != recorder) {
 			try {
 				recorder.stop();
 			} catch (IllegalStateException e) {
-				System.out.println("@@## Error2 IllegalStateException e = "+e);
+				//System.out.println("@@## Error2 IllegalStateException e = "+e);
 				e.printStackTrace();
 				sendErrorEvent(e.toString());
 			}

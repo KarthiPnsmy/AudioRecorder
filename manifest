@@ -15,4 +15,4 @@ name: audiorecorder
 moduleid: titutorial.audiorecorder
 guid: d69ff376-8e98-4f9f-876c-f807e5f50933
 platform: android
-minsdk: 3.1.0.GA
+minsdk: 3.0.0.GA
