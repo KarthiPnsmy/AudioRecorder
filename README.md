@@ -25,7 +25,7 @@ Note: These permissions already added in timodule.xml, so no need to add in tiap
 
 To access this module from JavaScript, you would do the following:
 ```javascript
-var audioRecorder = require("titutorial.audiorecoder");
+var audioRecorder = require("titutorial.audiorecorder");
 ```
 The audiorecorder variable is a reference to the Module object.	
 
