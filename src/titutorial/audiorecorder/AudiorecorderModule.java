@@ -296,5 +296,10 @@ public class AudiorecorderModule extends KrollModule
 		return isRecording;
 	}
 
+    @Kroll.method
+    public Integer getMaxAmplitude() {
+        return isRecording ? recorder.getMaxAmplitude() : -1;
+    }
+
 }
 

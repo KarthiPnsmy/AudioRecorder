@@ -60,6 +60,10 @@ Method to start the audio recording process
 
 Method to check recording process
 
+### getMaxAmplitude()
+
+Method to check amplitude of microphone input
+
 ## Usage
 ```javascript
 audioRecorder.startRecording({
