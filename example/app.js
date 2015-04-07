@@ -31,6 +31,8 @@ recordButton.addEventListener('click', function() {
 	audioRecorder.startRecording({
 		outputFormat : audioRecorder.OutputFormat_THREE_GPP,
 		audioEncoder : audioRecorder.AudioEncoder_AMR_NB,
+		audioEncodingBitRate: 64000,
+		audioSamplingRate: 44100,
 		directoryName : "testdir",
 		fileName : "testfile",
 		//maxDuration : 2000,
