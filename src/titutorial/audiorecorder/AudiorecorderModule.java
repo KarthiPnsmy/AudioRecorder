@@ -204,8 +204,12 @@ public class AudiorecorderModule extends KrollModule
 		} else {
 			recorder = null;
 			KrollDict options = new KrollDict(args);
+
 			int fileFormat = options.optInt("outputFormat", OutputFormat_THREE_GPP);
 			int audioEncoder = options.optInt("audioEncoder", AudioEncoder_AMR_NB);
+			int audioEncodingBitRate = options.optInt("audioEncodingBitRate", 16000);
+			int audioSamplingRate = options.optInt("audioSamplingRate", 22050);
+
 			String fileName = (String) options.get("fileName");
 			String fileDirectory = (String) options.get("directoryName");
 			String fileLocation = "external";
@@ -229,6 +233,8 @@ public class AudiorecorderModule extends KrollModule
 			recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 			recorder.setOutputFormat(fileFormat);
 			recorder.setAudioEncoder(audioEncoder);
+			recorder.setAudioEncodingBitRate(audioEncodingBitRate);
+			recorder.setAudioSamplingRate(audioSamplingRate);
 			
 			if (options.containsKey("maxDuration")) {
 				int maxDurValue = options.optInt("maxDuration", 5000);
