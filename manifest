@@ -2,9 +2,9 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 0.3
-apiversion: 2
-architectures: armeabi armeabi-v7a x86
+version: 0.4
+apiversion: 3
+architectures: armeabi-v7a x86
 description: AudioRecorder
 author: Karthi ponnusamy
 license: Specify your license
@@ -16,4 +16,4 @@ name: audiorecorder
 moduleid: titutorial.audiorecorder
 guid: d69ff376-8e98-4f9f-876c-f807e5f50933
 platform: android
-minsdk: 5.2.2.GA
+minsdk: 6.0.0.GA
