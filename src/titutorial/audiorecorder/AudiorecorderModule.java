@@ -45,13 +45,13 @@ public class AudiorecorderModule extends KrollModule
 
 	private KrollFunction successCallback = null;
 	private KrollFunction errorCallback = null;
-	
+
 	// Standard Debugging variables
 	private static final String TAG = "AudiorecorderModule";
 
 	// You can define constants with @Kroll.constant, for example:
 	// @Kroll.constant public static final String EXTERNAL_NAME = value;
-	
+
 	public AudiorecorderModule()
 	{
 		super();
@@ -148,7 +148,7 @@ public class AudiorecorderModule extends KrollModule
 		//System.out.println("@@## outPutFileName: " + outPutFileName);
 		System.out.println("@@## chking external storage: " + isExternalStorageWritable());
 		if(location.equals("internal")){
-			File audioDirectory = TiApplication.getAppRootOrCurrentActivity().getDir(directoryName, Context.MODE_WORLD_READABLE);
+			File audioDirectory = new File(TiApplication.getAppRootOrCurrentActivity().getCacheDir(), directoryName);
 			//System.out.println("@@## audioDirectory.exists(): " + audioDirectory.exists());
 			if (!audioDirectory.exists()) {
 				audioDirectory.mkdirs();
@@ -182,7 +182,7 @@ public class AudiorecorderModule extends KrollModule
 			//System.out.println("@@## Error: " + what + ", " + extra);
 		}
 	};
-	
+
 	private MediaRecorder.OnInfoListener infoListener = new MediaRecorder.OnInfoListener() {
 		@Override
 		public void onInfo(MediaRecorder mr, int what, int extra) {
@@ -221,13 +221,13 @@ public class AudiorecorderModule extends KrollModule
 				fileLocation = (String) options.get("fileLocation");
 			}
 			//System.out.println("@@## fileLocation : " + fileLocation);
-			String outputFileName = getFilename(fileFormat, fileName, fileDirectory, "external");
+			String outputFileName = getFilename(fileFormat, fileName, fileDirectory, fileLocation);
 			//System.out.println("@@## outputFileName = "+outputFileName);
 			if(outputFileName == null || outputFileName == ""){
 				sendErrorEvent("External storage not available");
 				return;
 			}
-			
+
 			recorder = new MediaRecorder();
 
 			recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -235,7 +235,7 @@ public class AudiorecorderModule extends KrollModule
 			recorder.setAudioEncoder(audioEncoder);
 			recorder.setAudioEncodingBitRate(audioEncodingBitRate);
 			recorder.setAudioSamplingRate(audioSamplingRate);
-			
+
 			if (options.containsKey("maxDuration")) {
 				int maxDurValue = options.optInt("maxDuration", 5000);
 				//System.out.println("@@## maxDurValue : " + maxDurValue);
@@ -255,7 +255,7 @@ public class AudiorecorderModule extends KrollModule
 					//System.out.println("@@## setMaxFileSize failed !");
 				}
 			}
-			
+
 			recorder.setOutputFile(outputFileName);
 			recorder.setOnErrorListener(errorListener);
 			recorder.setOnInfoListener(infoListener);
